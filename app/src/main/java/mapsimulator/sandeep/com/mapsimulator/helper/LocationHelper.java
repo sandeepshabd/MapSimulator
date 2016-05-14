@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import mapsimulator.sandeep.com.mapsimulator.listner.MarkerNavigationListner;
+
 /**
  * Created by sandeepshabd on 4/23/16.
  */
@@ -30,6 +32,8 @@ public class LocationHelper {
     public static final LatLng LOCHBRIDGE = new LatLng(42.332774, -83.046006);
     public static final LatLng DTW = new LatLng(42.216605, -83.355404);
 
+    private MarkerNavigationListner navMakerListner;
+
 
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
@@ -38,6 +42,7 @@ public class LocationHelper {
             curentLatitude = location.getLatitude();
             currentLongitude =location.getLongitude();
             currentLatLng = new LatLng(curentLatitude,currentLongitude);
+            navMakerListner.locationChanged();
         }
 
         @Override
@@ -55,6 +60,10 @@ public class LocationHelper {
 
         }
     };
+
+    public void setNavigationListener(MarkerNavigationListner markerNavigationListner){
+        navMakerListner= markerNavigationListner;
+    }
 
     public LocationHelper(Context ctx){
         context=ctx;

@@ -31,12 +31,13 @@ import mapsimulator.sandeep.com.mapsimulator.presenter.MapsPresenter;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-    private static final float ZOOM_LEVEL = 14.0f;
+    public GoogleMap mMap;
+    private static final float ZOOM_LEVEL = 17.0f;
     private static final float TILT_LEVEL = 0.0f;
 
 
     private MapsPresenter mapsPresenter;
+
 
     @DebugLog
     @Override
@@ -76,7 +77,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         LatLng currentlocation=LocationHelper.LOCHBRIDGE;
 
 //        // Add a marker in Sydney and move the camera
@@ -125,6 +126,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+
+    @DebugLog
+    public Marker getNavigationMarker(LatLng location, float bearing){
+        //showMapStartLocation(leg.getStart_location().convertToLatLng(),R.drawable.icn_map_start,leg.getStart_address(),leg.getStart_address())
+
+        return mMap.addMarker(new MarkerOptions().position(location)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icn_map_arrow))
+                .draggable(false)
+                .flat(true)
+                .anchor(0.5f, 0.5f)
+                .snippet("My Car !!"));
+    }
+
     @DebugLog
     public Polyline addPolyLineToMap(ArrayList<LatLng> location){
         return mMap.addPolyline(new PolylineOptions()
@@ -137,4 +151,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void animateMapCamera(LatLngBounds bounds){
         mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
     }
+
+    @DebugLog
+    public void toggleMapGestures(boolean enable) {
+        mMap.getUiSettings().setAllGesturesEnabled(enable);
+    }
+
+
+
+//    public void animateCameraForNavigation(LatLng currentLocation){
+//
+//        CameraPosition.Builder mPositionBuilder  = new CameraPosition.Builder()
+//                .tilt(TILT_LEVEL)
+//                .zoom(ZOOM_LEVEL)
+//                .target(currentLocation);
+//
+//        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(mPositionBuilder.build()));
+//
+//    }
 }

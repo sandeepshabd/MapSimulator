@@ -35,7 +35,7 @@ public class DirectionHelper {
     }
     @DebugLog
 
-    private static ArrayList<LatLng> getPointsAtDistance(String poly, double meters) {
+    public static ArrayList<LatLng> getPointsAtDistance(String poly, double meters) {
         ArrayList<LatLng> points = new ArrayList<LatLng>();
         ArrayList<LatLng> polyLine = decodePoly(poly);
         double dist = 0, oldDist = 0, next = meters;
